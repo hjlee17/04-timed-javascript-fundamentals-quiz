@@ -9,26 +9,49 @@
     </head>
 
     <body>
-        <ul>
-            <li><a href="#" id="score">View Highscores</a></li>
-            <li><a id="time">Time: </a></li>
+        <ul class="top">
+            <li class="top"><button id="view-score">View Scores</button></li> <!-- top left highscore link -->
+            <li class="top"><a id="start-time">Time: 30</a><div id="timer" style="display: none;"></div></li> <!-- top right quiz time -->
         </ul>
-   
-        <div class="container">
 
-            <div id="quiz-title-page">Coding Quiz Challenge</div>
+        <div class="main">
+            <div class="container-left">
+                <div class="container-title">Coding Quiz Challenge</div>
 
-                        
-            <div class="question-card">
-                <div id="question-container"></div> <!-- Container for the question -->
-                <div id="choices-container"></div> <!-- Container for the answer choices -->
+                <div class="problem-card">
+
+                    <div id="total-score">Score:</div>      
+                    
+                    <div id="save-score-form"> <!-- container for form to save score -->
+                        <form id="score-form">
+                            <label for="name">Enter your name:</label>
+                            <input type="text" id="name" name="name" required>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div> 
+
+                    <div id="question-container"></div> <!-- container for the question -->
+                    <div id="choices-container"></div> <!-- container for the answer choices -->
+                
+                    <div class="result"> <!-- container for incorrect/correct -->
+                        <div id="accuracy">😶</div> 
+                    </div>
+                    
+                </div>
+
+                <div><button class= "button" id="start"></button></div>
+
             </div>
-           
-            <div><button class= "button" id="start">Start Quiz</button></div>
+
+            <div class="container-right">
+                <div class="container-title">High Scores</div>
+                <div class="high-scores-card">
+                    <ol id="high-scores-list"></ol> <!-- high scores are added here via js -->
+                </div>
+                <div><button class= "button" id="reset">Reset Scores</button></div>
+            </div>
 
         </div>
-
-        <!-- test2 -->
 
         <script src="./assets/js/script.js"></script>
     </body>
