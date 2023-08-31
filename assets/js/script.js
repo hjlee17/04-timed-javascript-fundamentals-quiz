@@ -59,7 +59,9 @@ startButton.addEventListener("click", function() {
     startTime(); // start timer countdown function
     timerEl.style.display = "inline"; // show timer
     timerStart.style.display = "none"; // hide time <a> element
-    startButton.style.visibility = "hidden"; // hide start quiz button, without any shifting
+    startButton.style.display = "none"; // hide start quiz button, without any shifting 
+   
+    console.log ('startBtn', currentProblemIndex)
     displayProblem(currentProblemIndex); // show first quiz problem
     });
 
@@ -112,7 +114,6 @@ function displayProblem(index) { // index represents which q in the questions ar
     // so this initial emoji is functionting to keep everything in its set place
 
     scoreEl.style.visibility = "visible"; // hide the "total score" at page load
-
     var currentProblem = quizProblems[index]; // retrieves indexed problem, then assigns in 'currentProblem' variable 
     questionContainer.textContent = currentProblem.question; // takes q from currentProblem and displays through HTML
     choicesContainer.innerHTML = ""; // clear previous answer choices
@@ -158,13 +159,13 @@ function checkAnswer(selectedIndex) { // selectedIndex represents selected answe
     }
 
     currentProblemIndex++; // go on to the next question
-    if (currentProblemIndex < quizProblems.length) { // go to the next q, as long as there are more qs
+    if (currentProblemIndex < (quizProblems.length)) { // go to the next q, as long as there are more qs
+        console.log('qz-1', quizProblems.length-1);
+        console.log('checkAnswer', currentProblemIndex)
         displayProblem(currentProblemIndex); // show the next q per the displayProblem function
     } else { // if there are no questions left...
         clearInterval(timerInterval); // stop timer if there's any time left
         timerEl.textContent = "Time: 0"; // set timer to 0 
-        // this does not work as intended, i want the timer to stop when the questions are done, 
-        // even if the user had time left...
         questionContainer.style.visibility = "hidden"; // hide question
         choicesContainer.style.visibility = "hidden"; // hide answer
         saveScoreForm.style.visibility = "visible"; // show score form
@@ -200,6 +201,8 @@ saveScoreForm.addEventListener("submit", function(event) {
     //     return; // stop function
     // }
 
+    // how to allow only one submission?
+
     // sort the scores, and update local storage:
     highScores.push({ name: userName, score: userScore }); // add new score to highScores 
     highScores.sort(function(a, b) { return b.score - a.score; }); // sort highScores array high to low using 'push' function
@@ -212,10 +215,10 @@ saveScoreForm.addEventListener("submit", function(event) {
     // show a "Try Again" button where the Start Quiz button was ... 
     // got this functional, but console logs an error at 117
     
-    var startOverButton = document.getElementById("start"); // access start button in html again, but assign to a different variable
+    var startOverButton = document.getElementById("start-over"); // access start button in html again, but assign to a different variable
     startOverButton.setAttribute("style", "font-size: 2.5vh; padding: 15px; margin-top: 2vh;"); // keep same button styling as initial start button
     startOverButton.textContent = "Take Quiz Again"; //start button NEW text
-    startOverButton.style.visibility = "visible"; // show start button again with revised text
+    startOverButton.style.display = "block"; // show start button again with revised text
 
     // reset timer and score bar to initial settings
     timeLeft = 30; // reset timer to 30 seconds
@@ -240,6 +243,7 @@ saveScoreForm.addEventListener("submit", function(event) {
         questionContainer.style.visibility = "visible"; // show question
         choicesContainer.style.visibility = "visible"; // show answer
         saveScoreForm.style.visibility = "hidden"; // hide score form
+        console.log('startOverBtn', currentProblemIndex)
         displayProblem(currentProblemIndex); // show first quiz problem
         });
 });

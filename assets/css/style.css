@@ -98,7 +98,7 @@ li a, li button { /* score inside top horizontal bar */
   border-radius: 10px;
   box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
   width: 85%;
-  min-height: calc(100vh - 50vh);
+  height: 65%;
   display: flex;
   flex-direction: column; /* elements inside container will stack */
   justify-content: center;
@@ -123,18 +123,19 @@ li a, li button { /* score inside top horizontal bar */
 }
 
 #save-score-form {
-  margin-top: 30px;
+  /* margin-top: 1vh; */
 }
+
 #question-container { /* quiz question */
   display: flex;
-  margin: 25px;
-  max-width:70%;
-  height: 9vh;
-  font-size: 2.2vh;
+  margin: 5px;
+  max-width:85%;
+  height: 7vh;
+  font-size: 2vh;
   align-items: center;
   text-align: center; 
   font-weight: bold;
-  line-height: 2.7vh;
+  line-height: 2.2vh;
   }
 
 #choices-container { /* container for answer choices */
@@ -147,7 +148,7 @@ li a, li button { /* score inside top horizontal bar */
 .choice { /* answer choice buttons */
   width: 80%; 
   padding: 10px;
-  margin-top: 2vh;
+  margin-top: .5vh;
   font-size: 2vh;
   text-align: left;
   background-color: var(--turq7); 
@@ -169,7 +170,7 @@ li a, li button { /* score inside top horizontal bar */
   display: flex; /*  */
   font-size: 2vh;
   font-weight: bold; 
-  margin-top: 25px;
+  margin-top: 2vh;
 }
 
 .accuracy {
@@ -188,7 +189,7 @@ li a, li button { /* score inside top horizontal bar */
   border-radius: 10px;
   box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
   width: 85%;
-  min-height: calc(100vh - 50vh);
+  height: 65%;
   display: flex;
   justify-content: center; /* center horizontally */
   }
@@ -211,4 +212,9 @@ li a, li button { /* score inside top horizontal bar */
   border-width: 1px;
   border-radius: 10px;
   box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
+}
+
+
+.buttons-container { /* container prevents shifting when buttons disapper */
+  height: 11%;
 }
