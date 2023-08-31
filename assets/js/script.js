@@ -22,10 +22,9 @@ var timerInterval;
 
 var points = 0; // starting points
 
-
 // timer
 var timerEl = document.getElementById('timer'); // retrieves #timer from html, hidden at page load
-var timeLeft = 30; // quiz time length - 30 seconds
+var timeLeft = 60; // quiz time length - 30 seconds
 var timerStart = document.getElementById('start-time'); // retrieves #start-timer from html (time before quiz starts)
 timerEl.textContent = "Time: " + timeLeft; // timer text content before timer starts, allows for smooth transition once timer starts
  
@@ -47,6 +46,8 @@ function startTime() {
             scoreEl.textContent = "Total Score: " + points; // show the final score
             scoreEl.setAttribute("style", "background-color:rgba(100, 216, 177, 0.7); color:black"); // change bar color
             timerEl.textContent = "Time: 0"; // set timer to 0 (in case there were seconds left before penalty, otherwise timer will stop at this time)
+            var submitButton = document.getElementById('submit');
+            submitButton.style.setProperty('visibility','visible');
         } else {
             timerEl.textContent = "Time: " + timeLeft; // timer text content during countdown
         }
@@ -63,6 +64,7 @@ startButton.addEventListener("click", function() {
     console.log ('startBtn', currentProblemIndex)
     displayProblem(currentProblemIndex); // show first quiz problem
     });
+
 
 
 // quiz problems
@@ -137,12 +139,8 @@ var quizProblems = [
 
 function displayProblem(index) { // index represents which q in the questions array
 
-    accuracyEl.style.visibility = "visible"; // show the accuracy result at page load. 
-    // frankly, i don't want anything to show with the first question, 
-    // but i don't want the question/answers to shift up to make room for "correct" or "incorrect"
-    // so this initial emoji is functionting to keep everything in its set place
-
-    scoreEl.style.visibility = "visible"; // hide the "total score" at page load
+    accuracyEl.style.visibility = "visible"; // show the accuracy result at page load (neutral to start)
+    scoreEl.style.visibility = "visible"; // show the score counter at page load
     var currentProblem = quizProblems[index]; // retrieves indexed problem, then assigns in 'currentProblem' variable 
     questionContainer.textContent = currentProblem.question; // takes q from currentProblem and displays through HTML
     choicesContainer.innerHTML = ""; // clear previous answer choices
@@ -162,17 +160,16 @@ function displayProblem(index) { // index represents which q in the questions ar
 function checkAnswer(selectedIndex) { // selectedIndex represents selected answer choice
     var currentProblem = quizProblems[currentProblemIndex]; // retrieving the answer from the quizProblems array
     
-    if (selectedIndex === currentProblem.correctAnswer) { // if the selected answer is the correct answer...
+    if (selectedIndex === currentProblem.correctAnswer) { // if the selected answer is CORRECT
       points += 10; // add 10 pts to the "points" array
       console.log (points); 
       console.log("correct 😎"); 
-      accuracyEl.style.visibility = "visible"; // make accuracyEl visible
       accuracyEl.textContent = "Correct 😎"; // show "correct" in the accuracyEl
       scoreEl.textContent = "Score: " + points; // show the score
     
-    } else { // if the selected answer is an incorrect answer...
+    } else { // if the selected answer is an INCORRECT
       points -= 5; // subtract pts to the "points" array
-      console.log (points); // if the selected answer is the correct answer...
+      console.log (points); 
         function timePenalty () { // timer penalty for incorrect choice
             if (timeLeft > 5) {
                 timeLeft -= 5; // timer loses 5s for incorrect choice, but  
@@ -180,7 +177,6 @@ function checkAnswer(selectedIndex) { // selectedIndex represents selected answe
                 timeLeft = 0; }} // if there are less than 5s left, timer goes to 0
       console.log("incorrect 😩"); 
       accuracyEl.innerHTML = ""; // clear previous result
-      accuracyEl.style.visibility = "visible"; // make accuracyEl visible
       accuracyEl.textContent = "Incorrect 😩"; // show "incorrect" in the accuracyEl 
       scoreEl.textContent = "Score: " + points; // show the score
       timePenalty();
@@ -188,27 +184,28 @@ function checkAnswer(selectedIndex) { // selectedIndex represents selected answe
 
     currentProblemIndex++; // go on to the next question
     if (currentProblemIndex < (quizProblems.length)) { // go to the next q, as long as there are more qs
-        console.log('qz-1', quizProblems.length-1);
         console.log('checkAnswer', currentProblemIndex)
         displayProblem(currentProblemIndex); // show the next q per the displayProblem function
     } else { // if there are no questions left...
-        clearInterval(timerInterval); // stop timer if there's any time left
-        timerEl.textContent = "Time: 0"; // set timer to 0 
+        clearInterval(timerInterval); // reset timer if there's any time left
+        timerEl.textContent = "Time: 0"; // set timer to show 0s
         questionContainer.style.visibility = "hidden"; // hide question
         choicesContainer.style.visibility = "hidden"; // hide answer
         saveScoreForm.style.visibility = "visible"; // show score form
-        console.log("Quiz finished!");
-        console.log("Total Score:", points); // 
+        var submitButton = document.getElementById("submit"); 
+        submitButton.style.setProperty('visibility','visible');
+        console.log("finished quiz");
+        console.log("final score:", points); // 
         scoreEl.textContent = "Total Score: " + points; //
         scoreEl.setAttribute("style", "background-color: rgba(100, 216, 177, 0.7); color:black; font-size:2vh;"); // revert bar color
     }
 }   
 
 
-
-//score form functionality -- NOT FINISHED
+//score form functionality 
 saveScoreForm.addEventListener("submit", function(event) {
     event.preventDefault(); // prevents page reload
+
     var userName = document.getElementById("name").value; // access inputted name from form input
     var userScore = points; // set points as current player's score
 
@@ -216,33 +213,21 @@ saveScoreForm.addEventListener("submit", function(event) {
     // create array with name and score or retrieve existing scores from local storage   
     var highScores = JSON.parse(localStorage.getItem("highScores")) || []; 
 
-
-    // to have unique scores, and prevent double submissions
-    // check if userName already exists 
-    // var existingUser = highScores.find(function(score) { // look through score array to see if 
-    //     return score.name === userName; // any of them match the inputted userName
-    // });
-
-    // if (existingUser) {
-    //     console.log("Name already exists. Please enter a new name.");
-    //     alert("Name already exists. Please enter a new name.");
-    //     return; // stop function
-    // }
-
-    // how to allow only one submission?
-
     // sort the scores, and update local storage:
     highScores.push({ name: userName, score: userScore }); // add new score to highScores 
     highScores.sort(function(a, b) { return b.score - a.score; }); // sort highScores array high to low using 'push' function
 
     localStorage.setItem("highScores", JSON.stringify(highScores)); // store highScores in local storage
 
+    var submitButton = document.getElementById("submit");
+    //submitButton.style.visibility = "hidden";
+    submitButton.style.setProperty('visibility','hidden');
+    console.log('hidding button')
+
     displayHighScores(); // show all the scores including latest user's score
 
-
     // show a "Try Again" button where the Start Quiz button was, with same functionality
-    
-    var startOverButton = document.getElementById("start-over"); // access start button in html again, but assign to a different variable
+        var startOverButton = document.getElementById("start-over"); // access start button in html again, but assign to a different variable
     startOverButton.setAttribute("style", "font-size: 2.5vh; padding: 15px; margin-top: 2vh;"); // keep same button styling as initial start button
     startOverButton.textContent = "Take Quiz Again"; //start over button text
     startOverButton.style.display = "block"; // show start over button again with revised text
@@ -262,9 +247,9 @@ saveScoreForm.addEventListener("submit", function(event) {
         clearInterval(timerInterval);
         console.log("start q again button clicked");
         index = 0; // reset problem index
-        currentProblemIndex = 0;
+        currentProblemIndex = 0; // reset problem index
         startTime(timeLeft); // start timer countdown function
-        timerStart.style.display = "none"; // hide time <a> elemen
+        timerStart.style.display = "none"; // hide time <a> el
         timerEl.style.display = "inline"; // show timer
         startOverButton.style.visibility = "hidden"; // hide start quiz again button, without any shifting
         questionContainer.style.visibility = "visible"; // show question
@@ -273,14 +258,12 @@ saveScoreForm.addEventListener("submit", function(event) {
         console.log('startOverBtn', currentProblemIndex)
         displayProblem(currentProblemIndex); // show first quiz problem
         });
+        
 });
 
 
 function displayHighScores() {
     var highScoresList = document.getElementById("high-scores-list"); // access ordered list high-scores-list in HTML
-
-    // can i delete this from here and also in the line above (line 213 at the moment) 
-    // from saveScoreFrom and have the line appear once?
     var highScores = JSON.parse(localStorage.getItem("highScores")) || []; // retrieve scores from local storage
 
     highScoresList.innerHTML = ""; // clear previous list
@@ -294,15 +277,7 @@ function displayHighScores() {
         highScoresList.appendChild(listItem); // append to ol
     };
 
-    // highScores.forEach(function(score) { // loop through scores and create list items
-    //     var listItem = document.createElement("li"); // creates a list item
-    //     listItem.textContent = score.name + ": " + score.score; // text to be displayed in list item
-    //     listItem.classList.add("user-score"); // adds a "user-score" class - use in CSS
-    //     highScoresList.appendChild(listItem); // append to ol
-
-    //     // could add code to style list when it exceeds 8 scores...
-
-    // });
+    //     could add code to style list when it exceeds 8 scores...?
 }
 
 // view scores and reset buttons

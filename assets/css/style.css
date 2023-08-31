@@ -122,10 +122,6 @@ li a, li button { /* score inside top horizontal bar */
   color: var(--turq);
 }
 
-#save-score-form {
-  /* margin-top: 1vh; */
-}
-
 #question-container { /* quiz question */
   display: flex;
   margin: 5px;
@@ -143,6 +139,7 @@ li a, li button { /* score inside top horizontal bar */
   flex-direction: column;
   width: 100%; 
   align-items: center;
+  margin-bottom: 2vh;
   }
 
 .choice { /* answer choice buttons */
@@ -170,7 +167,7 @@ li a, li button { /* score inside top horizontal bar */
   display: flex; /*  */
   font-size: 2vh;
   font-weight: bold; 
-  margin-top: 2vh;
+  /* margin-top: 2vh; */
 }
 
 .accuracy {
