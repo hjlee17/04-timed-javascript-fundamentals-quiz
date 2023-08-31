@@ -1,4 +1,4 @@
-:root {
+:root { /* variables */
     --turq: rgb(100, 216, 177);
     --turq7: rgba(100, 216, 177, 0.7);
     --turq5: rgba(100, 216, 177, 0.5);
@@ -14,62 +14,201 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
 
-ul { /* top horizontal bar */
-    padding: 25px;
+.top { /* top horizontal bar */
+    padding: 10px;
     background-color: #333;
     display: flex; /* centering the list items */
     justify-content: space-between; /* space list items horizontally */
     align-items: center; /* center items vertically within this bar */
 }
 
-li a { /* formatting of score and time elements inside top horizontal bar */
+li a, li button { /* score inside top horizontal bar */
     display: block;
     color: white;
     text-align: center;
     font-size: 2vh;
-    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     text-decoration: none;
     background-color: var(--purp7);
     padding: 12px;
     border-radius: 5px;
   }
 
-#score {
+
+#timer { /* timer inside top horizontal bar */
+  background-color: var(--purp7);
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 2vh;
+  text-decoration: none;
+  background-color: var(--purp7);
+  padding: 12px;
+  border-radius: 5px;
 }
 
-#time {
+
+.main {
+  display: flex;
+  flex-direction:row; /* show containers side by side */
 }
 
-.container {  /* items in container should STACK */
-    background-color: var(--purp5);
-    border-radius: 10px;
-    margin: 50px;
-    min-height: calc(100vh - 20vh);
-    min-width: calc(100vw - 40vw);
-    display: flex;
-    flex-direction: column; /* elements inside container will stack */
-    justify-content: center;
-    align-items: center;
+.container-left {  /* main container holding entire problem and title */
+  background-color: var(--purp5);
+  border-radius: 10px;
+  margin: 50px;
+  min-height: calc(100vh - 20vh);
+  width: 70%;
+  display: flex;
+  flex-direction: column; /* elements in container should STACK */
+  justify-content: center;
+  align-items: center;
   }
 
-.question-card {  /* */
-    background-color: var(--purp7);
-    border: black;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
-    min-width: calc(100vw - 40vw);
-    min-height: calc(100vh - 50vh);
-    display: flex;
-    flex-direction: column; /* elements inside container will stack */
-    justify-content: center;
-    align-items: center;
+.container-right {  /* side container holding scores */
+  background-color: var(--purp5);
+  border-radius: 10px;
+  margin: 50px;
+  min-height: calc(100vh - 20vh);
+  width: 30%;
+  display: flex;
+  flex-direction: column; /* elements in container should STACK */
+  justify-content: center;
+  align-items: center;
   }
 
 
-#quiz-title-page {
+/* */
+.container-title { /* titles for either container */
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 4vh;
+  font-weight: bold;
+  text-align: center; 
+  margin-bottom: 2vh;
+  }
+
+.problem-card {  /* entire problem card container (q and as) */
+  position: relative;
+  background-color: var(--purp7);
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
+  width: 85%;
+  min-height: calc(100vh - 50vh);
+  display: flex;
+  flex-direction: column; /* elements inside container will stack */
+  justify-content: center;
+  align-items: center;
+  }
+
+#total-score {
+  background-color:#000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 7.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vh;
+  text-align: center;
+  color: var(--turq);
 }
 
+#save-score-form {
+  margin-top: 30px;
+}
+#question-container { /* quiz question */
+  display: flex;
+  margin: 25px;
+  max-width:70%;
+  height: 9vh;
+  font-size: 2.2vh;
+  align-items: center;
+  text-align: center; 
+  font-weight: bold;
+  line-height: 2.7vh;
+  }
+
+#choices-container { /* container for answer choices */
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  align-items: center;
+  }
+
+.choice { /* answer choice buttons */
+  width: 80%; 
+  padding: 10px;
+  margin-top: 2vh;
+  font-size: 2vh;
+  text-align: left;
+  background-color: var(--turq7); 
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.choice:hover { /* answer choice buttons behavior on hover */
+  background-color: var(--turq3); 
+  color: white; 
+}
+
+.result {
+  display: flex; /*  */
+  font-size: 2vh;
+  font-weight: bold; 
+  margin-top: 25px;
+}
+
+.accuracy {
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
+}
+
+.high-scores-card {  /* entire high score card container */
+  position: relative;
+  background-color: var(--purp7);
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
+  width: 85%;
+  min-height: calc(100vh - 50vh);
+  display: flex;
+  justify-content: center; /* center horizontally */
+  }
+
+#high-scores-list {
+  position: relative;
+  width:85%; 
+}
+
+.user-score {
+  position: relative;
+  width:100%; 
+  padding: 10px;
+  margin-top: 2vh;
+  font-size: 2vh;
+  text-align: left;
+  background-color: var(--turq7); 
+  border: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 4px rgba(0,0,0,0.5);
+}
