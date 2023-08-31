@@ -43,7 +43,7 @@ function startTime() {
             choicesContainer.style.visibility = "hidden"; // hide answers
             saveScoreForm.style.visibility = "visible"; // show score form
             console.log("time ran out!");
-            console.log("Total Score:", points);
+            console.log("total score:", points);
             scoreEl.textContent = "Total Score: " + points; // show the final score
             scoreEl.setAttribute("style", "background-color:rgba(100, 216, 177, 0.7); color:black"); // change bar color
             timerEl.textContent = "Time: 0"; // set timer to 0 (in case there were seconds left before penalty, otherwise timer will stop at this time)
@@ -67,52 +67,52 @@ startButton.addEventListener("click", function() {
 
 // quiz problems
 var quizProblems = [
-    {
+    {   // remove q
         question: "who is the second oldest member of BTS?",
         choices: ["1. min yoongi", "2. agust d", "3. suga", "4. all of the above"],
         correctAnswer: 3 // [3] is the correct choice
     },
-    {
+    {   // remove q
         question: "what day is joon's birthday?",
         choices: ["1. 9/1", "2. 9/12", "3. 9/14", "4. 9/30"],
         correctAnswer: 1 // [1] is the correct choice
     },
-    {
+    {   // remove q
         question: "which one is not one of jin's sugar gliders' names?",
         choices: ["1. 튀김", "2. 오뎅", "3. 국물", "4. 어묵"],
         correctAnswer: 0 // [0] is the correct choice
     },
-    {
+    {   // remove q
         question: "as of 8/31/23, suchwita episodes average about 5.2M views, but what is the average of eps with other members?",
         choices: ["1. 5M", "2. 6M", "3. 7M", "4. 8M"],
         correctAnswer: 3 // [3] is the correct choice
     },
-    {
+    {   // remove q
         question: "as of 8/31/23, hobi has the most instagram posts. his first post on 12/6/21 was:",
         choices: ["1. a mirror pic.", "2. a posed, full body shot.", "3. an artsy shot.", "4. a selfie."],
         correctAnswer: 2 // [2] is the correct choice
     },
-    {
+    {   // remove q
         question: "what is jimin's first tattoo?",
         choices: ["1. young forever", "2. 13", "3. nevermind", "4. moon"],
         correctAnswer: 2 // [2] is the correct choice
     },
-    {
+    {   // remove q
         question: "tae has the most followers on instagram with how many followers?",
         choices: ["1. 63.3M", "2. 62.1M", "3. 61.7M", "4. 61.3M"],
         correctAnswer: 3 // [3] is the correct choice
     },
-    {
+    {   // remove q
         question: "what was jk's stage name when he was on 복면가왕?",
         choices: ["1. 나무꾼", "2. 펜싱맨", "3. 땡벌", "4. 기타맨"],
         correctAnswer: 1 // [1] is the correct choice
     },
-    {
+    {   // remove q
         question: "Commonly used data types DO NOT include:",
         choices: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
         correctAnswer: 0 // [0] is the correct choice
       },
-    {
+    {   
         question: "The condition in an if / else statement is enclosed within ____.",
         choices: ["1. quotes", "2. curly brackets", "3. parentheses", "4. square brackets"],
         correctAnswer: 2 // [2] is the correct choice
@@ -153,8 +153,7 @@ function displayProblem(index) { // index represents which q in the questions ar
         choiceButton.textContent = choice; // sets the button text to the answer choices from the quizProblems variable
         choiceButton.classList.add("choice"); // adds a "choice" class - use in CSS
         choiceButton.addEventListener("click", function() { // adds functionality to buttons
-          checkAnswer(choiceIndex);
-        });
+          checkAnswer(choiceIndex);});
         choicesContainer.appendChild(choiceButton); // adds button to choices container 
     });
 };
@@ -166,7 +165,7 @@ function checkAnswer(selectedIndex) { // selectedIndex represents selected answe
     if (selectedIndex === currentProblem.correctAnswer) { // if the selected answer is the correct answer...
       points += 10; // add 10 pts to the "points" array
       console.log (points); 
-      console.log("Correct 😎"); 
+      console.log("correct 😎"); 
       accuracyEl.style.visibility = "visible"; // make accuracyEl visible
       accuracyEl.textContent = "Correct 😎"; // show "correct" in the accuracyEl
       scoreEl.textContent = "Score: " + points; // show the score
@@ -179,7 +178,7 @@ function checkAnswer(selectedIndex) { // selectedIndex represents selected answe
                 timeLeft -= 5; // timer loses 5s for incorrect choice, but  
             } else {
                 timeLeft = 0; }} // if there are less than 5s left, timer goes to 0
-      console.log("Incorrect 😩"); 
+      console.log("incorrect 😩"); 
       accuracyEl.innerHTML = ""; // clear previous result
       accuracyEl.style.visibility = "visible"; // make accuracyEl visible
       accuracyEl.textContent = "Incorrect 😩"; // show "incorrect" in the accuracyEl 
@@ -241,20 +240,19 @@ saveScoreForm.addEventListener("submit", function(event) {
     displayHighScores(); // show all the scores including latest user's score
 
 
-    // show a "Try Again" button where the Start Quiz button was ... 
-    // got this functional, but console logs an error at 117
+    // show a "Try Again" button where the Start Quiz button was, with same functionality
     
     var startOverButton = document.getElementById("start-over"); // access start button in html again, but assign to a different variable
     startOverButton.setAttribute("style", "font-size: 2.5vh; padding: 15px; margin-top: 2vh;"); // keep same button styling as initial start button
-    startOverButton.textContent = "Take Quiz Again"; //start button NEW text
-    startOverButton.style.display = "block"; // show start button again with revised text
+    startOverButton.textContent = "Take Quiz Again"; //start over button text
+    startOverButton.style.display = "block"; // show start over button again with revised text
 
     // reset timer and score bar to initial settings
     timeLeft = 30; // reset timer to 30 seconds
     var timerStart = document.getElementById('start-time'); // retrieves #start-timer from html (time before quiz starts)
     timerEl.textContent = "Time: " + timeLeft; // timer text content before timer starts, allows for smooth transition once timer starts
     timerStart.style.display = "block"; // show initial time <a> element
-    timerEl.style.display = "none";
+    timerEl.style.display = "none"; // hide timer
     points = 0; // reset points to 0
     scoreEl.textContent = "Score: " + points; // show the reset score
     scoreEl.setAttribute("style", "background-color: black; color:rgb(100, 216, 177)"); // revert bar color
@@ -262,7 +260,7 @@ saveScoreForm.addEventListener("submit", function(event) {
     // need functionality for the startOverButton but it does not work... time decreases too fast?
     startOverButton.addEventListener("click", function() {
         clearInterval(timerInterval);
-        console.log("Start Quiz Again button clicked");
+        console.log("start q again button clicked");
         index = 0; // reset problem index
         currentProblemIndex = 0;
         startTime(timeLeft); // start timer countdown function
@@ -287,7 +285,7 @@ function displayHighScores() {
 
     highScoresList.innerHTML = ""; // clear previous list
 
-    var scoresToShow = Math.min(8, highScores.length);
+    var scoresToShow = Math.min(8, highScores.length); // add scores to high score list, but limit to 8 items
     for (var i = 0; i < scoresToShow; i++) {
         var score = highScores[i];
         var listItem = document.createElement("li"); // creates a list item
