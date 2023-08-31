@@ -24,7 +24,7 @@ var points = 0; // starting points
 
 // timer
 var timerEl = document.getElementById('timer'); // retrieves #timer from html, hidden at page load
-var timeLeft = 60; // quiz time length - 30 seconds
+var timeLeft = 30; // quiz time length - 30 seconds
 var timerStart = document.getElementById('start-time'); // retrieves #start-timer from html (time before quiz starts)
 timerEl.textContent = "Time: " + timeLeft; // timer text content before timer starts, allows for smooth transition once timer starts
  
@@ -69,51 +69,6 @@ startButton.addEventListener("click", function() {
 
 // quiz problems
 var quizProblems = [
-    {   // remove q
-        question: "who is the second oldest member of BTS?",
-        choices: ["1. min yoongi", "2. agust d", "3. suga", "4. all of the above"],
-        correctAnswer: 3 // [3] is the correct choice
-    },
-    {   // remove q
-        question: "what day is joon's birthday?",
-        choices: ["1. 9/1", "2. 9/12", "3. 9/14", "4. 9/30"],
-        correctAnswer: 1 // [1] is the correct choice
-    },
-    {   // remove q
-        question: "which one is not one of jin's sugar gliders' names?",
-        choices: ["1. 튀김", "2. 오뎅", "3. 국물", "4. 어묵"],
-        correctAnswer: 0 // [0] is the correct choice
-    },
-    {   // remove q
-        question: "as of 8/31/23, suchwita episodes average about 5.2M views, but what is the average of eps with other members?",
-        choices: ["1. 5M", "2. 6M", "3. 7M", "4. 8M"],
-        correctAnswer: 3 // [3] is the correct choice
-    },
-    {   // remove q
-        question: "as of 8/31/23, hobi has the most instagram posts. his first post on 12/6/21 was:",
-        choices: ["1. a mirror pic.", "2. a posed, full body shot.", "3. an artsy shot.", "4. a selfie."],
-        correctAnswer: 2 // [2] is the correct choice
-    },
-    {   // remove q
-        question: "what is jimin's first tattoo?",
-        choices: ["1. young forever", "2. 13", "3. nevermind", "4. moon"],
-        correctAnswer: 2 // [2] is the correct choice
-    },
-    {   // remove q
-        question: "tae has the most followers on instagram with how many followers?",
-        choices: ["1. 63.3M", "2. 62.1M", "3. 61.7M", "4. 61.3M"],
-        correctAnswer: 3 // [3] is the correct choice
-    },
-    {   // remove q
-        question: "what was jk's stage name when he was on 복면가왕?",
-        choices: ["1. 나무꾼", "2. 펜싱맨", "3. 땡벌", "4. 기타맨"],
-        correctAnswer: 1 // [1] is the correct choice
-    },
-    {   // remove q
-        question: "Commonly used data types DO NOT include:",
-        choices: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
-        correctAnswer: 0 // [0] is the correct choice
-      },
     {   
         question: "The condition in an if / else statement is enclosed within ____.",
         choices: ["1. quotes", "2. curly brackets", "3. parentheses", "4. square brackets"],
