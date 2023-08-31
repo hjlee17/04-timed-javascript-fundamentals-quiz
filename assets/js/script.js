@@ -17,7 +17,8 @@ accuracyEl.style.visibility = "hidden"; // hide the accuracy result at page load
 var saveScoreForm = document.getElementById("score-form");  // access score-form form in HTML
 saveScoreForm.style.visibility = "hidden"; // hide the score form at page load
 
-let currentProblemIndex = 0; // keeps track of which problem user is on 
+var currentProblemIndex = 0; // keeps track of which problem user is on 
+var timerInterval;
 
 var points = 0; // starting points
 
@@ -32,7 +33,7 @@ timerEl.textContent = "Time: " + timeLeft; // timer text content before timer st
 // timer countdown function
 function startTime() {
     // sets interval in variable
-    var timerInterval = setInterval(function() { // setInterval executes code repeatedly 1s (1000ms)
+    timerInterval = setInterval(function() { // setInterval executes code repeatedly 1s (1000ms)
         timeLeft--; // timer decrement by 1s
 
         if (timeLeft <= 0) {  
@@ -93,7 +94,7 @@ var quizProblems = [
     {
         question: "String values must be enclosed within ____ when being assigned to variables.",
         choices: ["1. commas", "2. curly brackets", "3. quotes", "4. parentheses"],
-        correctAnswer: 3 // [3] is the correct choice
+        correctAnswer: 2 // [2] is the correct choice
       },
     {
         question: "A very useful tool during development and debugging for printing content to the debugger is:",
@@ -160,19 +161,23 @@ function checkAnswer(selectedIndex) { // selectedIndex represents selected answe
     if (currentProblemIndex < quizProblems.length) { // go to the next q, as long as there are more qs
         displayProblem(currentProblemIndex); // show the next q per the displayProblem function
     } else { // if there are no questions left...
+        clearInterval(timerInterval); // stop timer if there's any time left
         timerEl.textContent = "Time: 0"; // set timer to 0 
         // this does not work as intended, i want the timer to stop when the questions are done, 
-        // even if the user had seconds left...
+        // even if the user had time left...
         questionContainer.style.visibility = "hidden"; // hide question
         choicesContainer.style.visibility = "hidden"; // hide answer
         saveScoreForm.style.visibility = "visible"; // show score form
         console.log("Quiz finished!");
         console.log("Total Score:", points); // 
         scoreEl.textContent = "Total Score: " + points; //
+        scoreEl.setAttribute("style", "background-color: rgba(100, 216, 177, 0.7); color:black; font-size:2vh;"); // revert bar color
     }
 }   
 
-//score form functionality
+
+
+//score form functionality -- NOT FINISHED
 saveScoreForm.addEventListener("submit", function(event) {
     event.preventDefault(); // prevents page reload
     var userName = document.getElementById("name").value; // access inputted name from form input
@@ -182,6 +187,19 @@ saveScoreForm.addEventListener("submit", function(event) {
     // create array with name and score or retrieve existing scores from local storage   
     var highScores = JSON.parse(localStorage.getItem("highScores")) || []; 
 
+
+    // to have unique scores, and prevent double submissions
+    // check if userName already exists 
+    // var existingUser = highScores.find(function(score) { // look through score array to see if 
+    //     return score.name === userName; // any of them match the inputted userName
+    // });
+
+    // if (existingUser) {
+    //     console.log("Name already exists. Please enter a new name.");
+    //     alert("Name already exists. Please enter a new name.");
+    //     return; // stop function
+    // }
+
     // sort the scores, and update local storage:
     highScores.push({ name: userName, score: userScore }); // add new score to highScores 
     highScores.sort(function(a, b) { return b.score - a.score; }); // sort highScores array high to low using 'push' function
@@ -190,22 +208,42 @@ saveScoreForm.addEventListener("submit", function(event) {
 
     displayHighScores(); // show all the scores including latest user's score
 
-    // prevent more than one submission?
-    // show a "Try Again" button where the Start Quiz button was?
+
+    // show a "Try Again" button where the Start Quiz button was ... 
+    // got this functional, but console logs an error at 117
+    
     var startOverButton = document.getElementById("start"); // access start button in html again, but assign to a different variable
     startOverButton.setAttribute("style", "font-size: 2.5vh; padding: 15px; margin-top: 2vh;"); // keep same button styling as initial start button
     startOverButton.textContent = "Take Quiz Again"; //start button NEW text
     startOverButton.style.visibility = "visible"; // show start button again with revised text
+
+    // reset timer and score bar to initial settings
+    timeLeft = 30; // reset timer to 30 seconds
+    var timerStart = document.getElementById('start-time'); // retrieves #start-timer from html (time before quiz starts)
+    timerEl.textContent = "Time: " + timeLeft; // timer text content before timer starts, allows for smooth transition once timer starts
+    timerStart.style.display = "block"; // show initial time <a> element
+    timerEl.style.display = "none";
+    points = 0; // reset points to 0
+    scoreEl.textContent = "Score: " + points; // show the reset score
+    scoreEl.setAttribute("style", "background-color: black; color:rgb(100, 216, 177)"); // revert bar color
+
+    // need functionality for the startOverButton but it does not work... time decreases too fast?
+    startOverButton.addEventListener("click", function() {
+        clearInterval(timerInterval);
+        console.log("Start Quiz Again button clicked");
+        index = 0; // reset problem index
+        currentProblemIndex = 0;
+        startTime(timeLeft); // start timer countdown function
+        timerStart.style.display = "none"; // hide time <a> elemen
+        timerEl.style.display = "inline"; // show timer
+        startOverButton.style.visibility = "hidden"; // hide start quiz again button, without any shifting
+        questionContainer.style.visibility = "visible"; // show question
+        choicesContainer.style.visibility = "visible"; // show answer
+        saveScoreForm.style.visibility = "hidden"; // hide score form
+        displayProblem(currentProblemIndex); // show first quiz problem
+        });
 });
 
-// need functionality for the startOverButton but it does not work 
-// startOverButton.addEventListener("click", function() {
-//     startTime(); // start timer countdown function
-//     timerEl.style.display = "inline"; // show timer
-//     timerStart.style.display = "none"; // hide time <a> element
-//     startOverButton.style.visibility = "hidden"; // hide start quiz button, without any shifting
-//     displayProblem(currentProblemIndex); // show first quiz problem
-//     });
 
 function displayHighScores() {
     var highScoresList = document.getElementById("high-scores-list"); // access ordered list high-scores-list in HTML
@@ -216,12 +254,24 @@ function displayHighScores() {
 
     highScoresList.innerHTML = ""; // clear previous list
 
-    highScores.forEach(function(score) { // loop through scores and create list items
+    var scoresToShow = Math.min(8, highScores.length);
+    for (var i = 0; i < scoresToShow; i++) {
+        var score = highScores[i];
         var listItem = document.createElement("li"); // creates a list item
         listItem.textContent = score.name + ": " + score.score; // text to be displayed in list item
         listItem.classList.add("user-score"); // adds a "user-score" class - use in CSS
         highScoresList.appendChild(listItem); // append to ol
-    });
+    };
+
+    // highScores.forEach(function(score) { // loop through scores and create list items
+    //     var listItem = document.createElement("li"); // creates a list item
+    //     listItem.textContent = score.name + ": " + score.score; // text to be displayed in list item
+    //     listItem.classList.add("user-score"); // adds a "user-score" class - use in CSS
+    //     highScoresList.appendChild(listItem); // append to ol
+
+    //     // could add code to style list when it exceeds 8 scores...
+
+    // });
 }
 
 // view scores and reset buttons
