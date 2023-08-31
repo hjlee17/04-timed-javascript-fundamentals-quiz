@@ -59,8 +59,7 @@ startButton.addEventListener("click", function() {
     startTime(); // start timer countdown function
     timerEl.style.display = "inline"; // show timer
     timerStart.style.display = "none"; // hide time <a> element
-    startButton.style.display = "none"; // hide start quiz button, without any shifting 
-   
+    startButton.style.display = "none"; // hide start quiz button
     console.log ('startBtn', currentProblemIndex)
     displayProblem(currentProblemIndex); // show first quiz problem
     });
@@ -74,14 +73,44 @@ var quizProblems = [
         correctAnswer: 3 // [3] is the correct choice
     },
     {
-        question: "whose birthday is on september 12?",
-        choices: ["1. jin", "2. joon", "3. yoongi", "4. hobi"],
+        question: "what day is joon's birthday?",
+        choices: ["1. 9/1", "2. 9/12", "3. 9/14", "4. 9/30"],
+        correctAnswer: 1 // [1] is the correct choice
+    },
+    {
+        question: "which one is not one of jin's sugar gliders' names?",
+        choices: ["1. 튀김", "2. 오뎅", "3. 국물", "4. 어묵"],
+        correctAnswer: 0 // [0] is the correct choice
+    },
+    {
+        question: "as of 8/31/23, suchwita episodes average about 5.2M views, but what is the average of eps with other members?",
+        choices: ["1. 5M", "2. 6M", "3. 7M", "4. 8M"],
+        correctAnswer: 3 // [3] is the correct choice
+    },
+    {
+        question: "as of 8/31/23, hobi has the most instagram posts. his first post on 12/6/21 was:",
+        choices: ["1. a mirror pic.", "2. a posed, full body shot.", "3. an artsy shot.", "4. a selfie."],
+        correctAnswer: 2 // [2] is the correct choice
+    },
+    {
+        question: "what is jimin's first tattoo?",
+        choices: ["1. young forever", "2. 13", "3. nevermind", "4. moon"],
+        correctAnswer: 2 // [2] is the correct choice
+    },
+    {
+        question: "tae has the most followers on instagram with how many followers?",
+        choices: ["1. 63.3M", "2. 62.1M", "3. 61.7M", "4. 61.3M"],
+        correctAnswer: 3 // [3] is the correct choice
+    },
+    {
+        question: "what was jk's stage name when he was on 복면가왕?",
+        choices: ["1. 나무꾼", "2. 펜싱맨", "3. 땡벌", "4. 기타맨"],
         correctAnswer: 1 // [1] is the correct choice
     },
     {
         question: "Commonly used data types DO NOT include:",
         choices: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
-        correctAnswer: 2 // [2] is the correct choice
+        correctAnswer: 0 // [0] is the correct choice
       },
     {
         question: "The condition in an if / else statement is enclosed within ____.",
