@@ -1,9 +1,3 @@
-// function showAlert() {
-//     alert("Try to answer the following code-related questions within 30 seconds (seen at the top right corner). Incorrect answers will penalize your time by 5 seconds! Press Start Quiz to show the first question and start the timer.");
-//   }
-
-// window.onload = showAlert;
-
 var startButton = document.getElementById("start"); // access start button in html
 startButton.setAttribute("style", "font-size: 2.5vh; padding: 15px; margin-top: 2vh;"); //start button styling
 startButton.textContent = "Start Quiz"; // start button text
