@@ -1,3 +1,9 @@
+// function showAlert() {
+//     alert("Try to answer the following code-related questions within 30 seconds (seen at the top right corner). Incorrect answers will penalize your time by 5 seconds! Press Start Quiz to show the first question and start the timer.");
+//   }
+
+// window.onload = showAlert;
+
 var startButton = document.getElementById("start"); // access start button in html
 startButton.setAttribute("style", "font-size: 2.5vh; padding: 15px; margin-top: 2vh;"); //start button styling
 startButton.textContent = "Start Quiz"; // start button text
@@ -32,6 +38,7 @@ timerEl.textContent = "Time: " + timeLeft; // timer text content before timer st
 // timer countdown function
 function startTime() {
     // sets interval in variable
+    
     timerInterval = setInterval(function() { // setInterval executes code repeatedly 1s (1000ms)
         timeLeft--; // timer decrement by 1s
 
@@ -58,6 +65,8 @@ function startTime() {
 // clicking start starts timer and removes the start button from the screen and pulls up the first question
 startButton.addEventListener("click", function() {
     startTime(); // start timer countdown function
+    var instructionsEl = document.getElementById("instructions"); // access intructions in HTML
+    instructionsEl.style.display = "none"; // hide the instructions and remove from page once quiz starts
     timerEl.style.display = "inline"; // show timer
     timerStart.style.display = "none"; // hide time <a> element
     startButton.style.display = "none"; // hide start quiz button
@@ -69,6 +78,11 @@ startButton.addEventListener("click", function() {
 
 // quiz problems
 var quizProblems = [
+    {   
+        question: "Commonly used data types DO NOT include:",
+        choices: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
+        correctAnswer: 2 // [2] is the correct choice
+      },
     {   
         question: "The condition in an if / else statement is enclosed within ____.",
         choices: ["1. quotes", "2. curly brackets", "3. parentheses", "4. square brackets"],

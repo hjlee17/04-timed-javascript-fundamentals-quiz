@@ -80,7 +80,6 @@ li a, li button { /* score inside top horizontal bar */
   }
 
 
-/* */
 .container-title { /* titles for either container */
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 4vh;
@@ -89,6 +88,8 @@ li a, li button { /* score inside top horizontal bar */
   margin-bottom: 2vh;
   }
 
+
+/* dark purple container inside left container  */
 .problem-card {  /* entire problem card container (q and as) */
   position: relative;
   background-color: var(--purp7);
@@ -105,7 +106,23 @@ li a, li button { /* score inside top horizontal bar */
   align-items: center;
   }
 
-#total-score {
+
+#instructions {
+  margin: 7em;
+  text-align: center;
+}
+
+#instructions p {
+  margin-bottom: 1em;
+  font-size: 1.5em;
+}
+
+#instructions h1 {
+  margin-bottom: 1em;
+  font-size: 2em;
+}
+
+#total-score { /* score tracker bar */
   background-color:#000;
   position: absolute;
   top: 0;
