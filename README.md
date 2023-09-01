@@ -22,10 +22,10 @@ BootCampSpot BootCampTutorTeam
 
 ## Resources
 
-[MDN Web Docs: ](developer.mozilla.org)
-[CSS-Tricks: ](css-tricks.com/)
-[W3Schools: ](www.w3schools.com/)
-[stack overflow: ](stackoverflow.com/)
+[MDN Web Docs](developer.mozilla.org)\
+[CSS-Tricks](css-tricks.com/)\
+[W3Schools](www.w3schools.com/)\
+[stack overflow](stackoverflow.com/)
 
 ## License
 
