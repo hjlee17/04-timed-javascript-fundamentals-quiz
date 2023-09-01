@@ -2,9 +2,9 @@
 
 ## Description
 
-Deploy a website where a user can take a timed quiz on JavaScript fundamentals. The application will store up to 8 high scores, and users can compare their scores to other users.
+Application where a user can take a timed quiz on JavaScript fundamentals. The application will store up to 8 high scores, and users can compare their scores to other users.
 
-This website functional but not friendly for mobile devices. 
+This website is functional, but not friendly for mobile devices. 
 
 ## Installation
 
@@ -13,7 +13,7 @@ n/a
 ## Usage
 Link to deployed application: https://hjlee17.github.io/04-timed-javascript-fundamentals-quiz/ 
 
-A user can answer a series of prompts to generate a password that meets their criteria. 
+A user can answer up to five JavaScript questions and log their score.
 ![Timed JavaScript Fundamentals Quiz Application.](assets/images/sc-window.png)
 
 ## Credits
